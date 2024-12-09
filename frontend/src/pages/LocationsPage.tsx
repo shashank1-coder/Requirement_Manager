@@ -185,15 +185,15 @@ const LocationsPage: React.FC = () => {
                   />
                 </TableCell>
                 <TableCell>
-                  <IconButton onClick={() => handleOpenDialog(location)} size="small">
+                  <IconButton onClick={() => handleOpenDialog(location)} size="small" aria-label='Edit Location'>
                     <EditIcon />
                   </IconButton>
                   {location.is_active ? (
-                    <IconButton onClick={() => handleDelete(location.id)} size="small">
+                    <IconButton onClick={() => handleDelete(location.id)} size="small" aria-label='Delete Location'>
                       <DeleteIcon />
                     </IconButton>
                   ) : (
-                    <IconButton onClick={() => handleReactivate(location.id)} size="small">
+                    <IconButton onClick={() => handleReactivate(location.id)} size="small" aria-label='Restore Location'>
                       <RestoreIcon />
                     </IconButton>
                   )}

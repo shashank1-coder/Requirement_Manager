@@ -74,6 +74,7 @@ const SkillsPage: React.FC = () => {
       const fetchedDomains = await domainService.getDomains(true);
       setDomains(fetchedDomains);
     } catch (err) {
+      setError('Failed to fetch domains');
       console.error('Error fetching domains:', err);
     }
   };
@@ -110,6 +111,10 @@ const SkillsPage: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (!formData.name || !formData.domain_id) {
+      setError('Please fill in all required fields');
+      return;
+    }
     try {
       const skillData = {
         name: formData.name,
@@ -207,10 +212,10 @@ const SkillsPage: React.FC = () => {
                   />
                 </TableCell>
                 <TableCell>
-                  <IconButton onClick={() => handleOpenDialog(skill)} size="small">
+                  <IconButton onClick={() => handleOpenDialog(skill)} size="small"  aria-label="Edit skill">
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => handleToggleActive(skill.id, skill.is_active)} size="small">
+                  <IconButton onClick={() => handleToggleActive(skill.id, skill.is_active)} size="small" aria-label={skill.is_active ? 'Delete skill' : 'Restore skill'}>
                     {skill.is_active ? <DeleteIcon /> : <RestoreIcon />}
                   </IconButton>
                 </TableCell>
@@ -236,12 +241,14 @@ const SkillsPage: React.FC = () => {
               onChange={handleTextInputChange}
             />
             <FormControl fullWidth margin="dense">
-              <InputLabel>Domain</InputLabel>
+              <InputLabel htmlFor="domain-select">Domain</InputLabel>
               <Select
+                id='domain-select'
                 name="domain_id"
                 value={formData.domain_id}
                 onChange={handleSelectChange}
                 required
+                aria-label='Domain'
               >
                 {domains.map((domain) => (
                   <MenuItem key={domain.id} value={domain.id.toString()}>{domain.name}</MenuItem>

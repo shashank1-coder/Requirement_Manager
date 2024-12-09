@@ -60,7 +60,7 @@ const ClientsPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   const handleOpenDialog = (client: Client | null = null) => {
     if (client) {
@@ -91,6 +91,10 @@ const ClientsPage: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (!formData.name || !formData.industry || !formData.contact_person || !formData.email || !formData.phone) {
+      setError('Please fill in all required fields');
+      return;
+    }
     try {
       if (editingClient) {
         await clientService.updateClient(editingClient.id, formData);
@@ -175,10 +179,10 @@ const ClientsPage: React.FC = () => {
                   />
                 </TableCell>
                 <TableCell>
-                  <IconButton onClick={() => handleOpenDialog(client)} size="small">
+                  <IconButton onClick={() => handleOpenDialog(client)} size="small" aria-label='Edit Client'>
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => handleToggleActive(client.id, client.is_active)} size="small">
+                  <IconButton onClick={() => handleToggleActive(client.id, client.is_active)} size="small" aria-label={client.is_active ? 'Delete Client' : 'Restore Client'}>
                     {client.is_active ? <DeleteIcon /> : <RestoreIcon />}
                   </IconButton>
                 </TableCell>

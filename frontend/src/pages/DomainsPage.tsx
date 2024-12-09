@@ -77,6 +77,10 @@ const DomainsPage: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (!formData.name) {
+      setError('Please fill in all required fields');
+      return;
+    }
     try {
       if (editingDomain) {
         await domainService.updateDomain(editingDomain.id, formData);
@@ -154,10 +158,10 @@ const DomainsPage: React.FC = () => {
                   />
                 </TableCell>
                 <TableCell>
-                  <IconButton onClick={() => handleOpenDialog(domain)} size="small">
+                  <IconButton onClick={() => handleOpenDialog(domain)} aria-label="Edit domain" size="small">
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => handleToggleActive(domain.id, domain.is_active)} size="small">
+                  <IconButton onClick={() => handleToggleActive(domain.id, domain.is_active)} size="small" aria-label={domain.is_active ? 'Delete domain' : 'Restore domain'}>
                     {domain.is_active ? <DeleteIcon /> : <RestoreIcon />}
                   </IconButton>
                 </TableCell>

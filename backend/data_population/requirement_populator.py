@@ -683,7 +683,7 @@ def populate_requirements(db: Session):
     domains = db.query(Domain).all()
     statuses = db.query(Status).all()
     skills = db.query(Skill).all()
-    priorities = ["High", "Medium", "Low"]
+    priorities = ["high", "medium", "low"]
 
     # Define a location mapping for "Hyd" and "BLR"
     location_mapping = {

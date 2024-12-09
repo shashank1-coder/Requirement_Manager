@@ -75,6 +75,10 @@ const RolesPage: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (!formData.name || !formData.description) {
+      setError('Please fill in all required fields');
+      return;
+    }
     try {
       if (editingRole) {
         await roleService.updateRole(editingRole.id, formData);
@@ -135,10 +139,10 @@ const RolesPage: React.FC = () => {
                 <TableCell>{role.name}</TableCell>
                 <TableCell>{role.description}</TableCell>
                 <TableCell>
-                  <IconButton onClick={() => handleOpenDialog(role)} size="small">
+                  <IconButton onClick={() => handleOpenDialog(role)} size="small" aria-label="Edit role">
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => handleDelete(role.id)} size="small">
+                  <IconButton onClick={() => handleDelete(role.id)} size="small" aria-label="Delete role">
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

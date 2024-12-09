@@ -170,10 +170,10 @@ const StatusManagementPage: React.FC = () => {
                   </StatusIndicator>
                 </TableCell>
                 <TableCell>
-                  <IconButton onClick={() => handleOpenDialog(status)} size="small">
+                  <IconButton onClick={() => handleOpenDialog(status)} size="small" aria-label='Edit status'>
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => handleDelete(status.id)} size="small">
+                  <IconButton onClick={() => handleDelete(status.id)} size="small" aria-label='Delete status'>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
